@@ -19,5 +19,17 @@ namespace Bowling.Tests.Model
             Assert.Equal(isSpareExpected, frame.IsSpare);
             Assert.Equal(isStrikeExpected, frame.IsStrike);
         }
+
+        [Theory]
+        [InlineData(1, 10)]
+        [InlineData(-1, 7)]
+        [InlineData(11, 7)]
+        [InlineData(0, 11)]
+        [InlineData(0, -1)]
+        public void ValidateFrameCreationWithInvalidParameters(int firstLaunch, int secondLaunch)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Frame.CreateFrame(firstLaunch, secondLaunch));
+            Assert.NotEmpty(exception.Message);
+        }
     }
 }
