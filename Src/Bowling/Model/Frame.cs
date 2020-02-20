@@ -15,12 +15,20 @@ namespace Bowling.Model
         public bool IsStrike { get; protected set; } = false;
         public bool IsSpare { get; protected set; } = false;
 
+        public Frame NextFrame { get; private set; } = null;
+
         protected Frame(int firstLaunch, int secondLaunch)
         {
             FirstLaunch = firstLaunch;
             SecondLaunch = secondLaunch;
         }
 
+        public void SetNextFrame(Frame frame)
+        {
+            NextFrame = frame;
+        }
+
+        #region static builder
         public static Frame CreateFrame(int firstLaunch, int secondLaunch)
         {
             ValidateFrame(firstLaunch, secondLaunch);
@@ -52,5 +60,6 @@ namespace Bowling.Model
             if (totalPinDropped > MaxDroppablePins)
                 throw new ArgumentException($"Maximum ({MaxDroppablePins} pin dropped exceed: {totalPinDropped}");
         }
+        #endregion
     }
 }
