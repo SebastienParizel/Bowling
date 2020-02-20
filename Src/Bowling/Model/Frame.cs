@@ -24,6 +24,11 @@ namespace Bowling.Model
         public static Frame CreateFrame(int firstLaunch, int secondLaunch)
         {
             ValidateFrame(firstLaunch, secondLaunch);
+            if (firstLaunch == MaxDroppablePins)
+                return new StrikeFrame(firstLaunch, secondLaunch);
+            if(firstLaunch + secondLaunch == MaxDroppablePins)
+                return new FrameSpare(firstLaunch, secondLaunch);
+
             return new Frame(firstLaunch, secondLaunch);
         }
 

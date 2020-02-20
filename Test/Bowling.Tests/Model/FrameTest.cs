@@ -13,6 +13,10 @@ namespace Bowling.Tests.Model
         [Theory]
         [InlineData(1, 5, false, false)]
         [InlineData(2, 7, false, false)]
+        [InlineData(2, 8, true, false)]
+        [InlineData(3, 7, true, false)]
+        [InlineData(0, 10, true, false)]
+        [InlineData(10, 0, false, true)]
         public void ValidateFrameCreation(int firstLaunch, int secondLaunch, bool isSpareExpected, bool isStrikeExpected)
         {
             Frame frame = Frame.CreateFrame(firstLaunch, secondLaunch);
