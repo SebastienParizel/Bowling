@@ -28,6 +28,15 @@ namespace Bowling.Model
             NextFrame = frame;
         }
 
+        public virtual int CalculateFrameScore()
+        {
+            int score = 0;
+            if (NextFrame != null)
+                score = NextFrame.CalculateFrameScore();
+
+            return score + FirstLaunch + SecondLaunch;
+        }
+
         #region static builder
         public static Frame CreateFrame(int firstLaunch, int secondLaunch)
         {

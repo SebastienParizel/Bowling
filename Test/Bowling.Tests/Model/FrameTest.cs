@@ -35,5 +35,35 @@ namespace Bowling.Tests.Model
             var exception = Assert.Throws<ArgumentException>(() => Frame.CreateFrame(firstLaunch, secondLaunch));
             Assert.NotEmpty(exception.Message);
         }
+
+        [Theory]
+        [InlineData(1, 2, 3)]
+        [InlineData(4, 2, 6)]
+        [InlineData(0, 2, 2)]
+        public void ValidateFrameScoreCalculation(int firstLaunch, int secondLaunch, int expectedScore)
+        {
+            var frame = Frame.CreateFrame(firstLaunch, secondLaunch);
+            Assert.Equal(expectedScore, frame.CalculateFrameScore());
+        }
+
+        [Fact]
+        public void ValidateFrameScoreCalculationWithSpare()
+        {
+            var firstFrame = Frame.CreateFrame(1, 9);
+            var secondFrame = Frame.CreateFrame(5, 2);
+            firstFrame.SetNextFrame(secondFrame);
+            Assert.Equal(7, secondFrame.CalculateFrameScore());
+            Assert.Equal(22, firstFrame.CalculateFrameScore());
+        }
+
+        [Fact]
+        public void ValidateFrameScoreCalculationWithStrike()
+        {
+            var firstFrame = Frame.CreateFrame(10, 0);
+            var secondFrame = Frame.CreateFrame(5, 2);
+            firstFrame.SetNextFrame(secondFrame);
+            Assert.Equal(7, secondFrame.CalculateFrameScore());
+            Assert.Equal(24, firstFrame.CalculateFrameScore());
+        }
     }
 }

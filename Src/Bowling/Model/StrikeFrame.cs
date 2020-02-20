@@ -12,5 +12,11 @@ namespace Bowling.Model
         {
             IsStrike = true;
         }
+
+        public override int CalculateFrameScore()
+        {
+            var baseScore = base.CalculateFrameScore();
+            return baseScore + NextFrame.FirstLaunch + NextFrame.SecondLaunch;
+        }
     }
 }
