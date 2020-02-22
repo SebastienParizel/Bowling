@@ -16,6 +16,8 @@ namespace Bowling.Model
         public override int CalculateFrameScore()
         {
             int baseScore = base.CalculateFrameScore();
+            if (!HasNextFrame())
+                return baseScore;
             return baseScore + NextFrame.FirstLaunch;
         }
     }

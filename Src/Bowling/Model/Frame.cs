@@ -16,6 +16,7 @@ namespace Bowling.Model
         public bool IsSpare { get; protected set; } = false;
 
         public Frame NextFrame { get; private set; } = null;
+        public Frame PreviousFrame { get; private set; } = null;
 
         protected Frame(int firstLaunch, int secondLaunch)
         {
@@ -26,15 +27,31 @@ namespace Bowling.Model
         public void SetNextFrame(Frame frame)
         {
             NextFrame = frame;
+            frame.PreviousFrame = this;
+        }
+
+        public int CalculateScore()
+        {
+            int previousFrameScore = GetPreviousFrameScore();
+            int frameScore = CalculateFrameScore();
+            return previousFrameScore + frameScore;
         }
 
         public virtual int CalculateFrameScore()
         {
-            int score = 0;
-            if (NextFrame != null)
-                score = NextFrame.CalculateFrameScore();
+            return FirstLaunch + SecondLaunch;
+        }
 
-            return score + FirstLaunch + SecondLaunch;
+        protected bool HasNextFrame()
+        {
+            return NextFrame != null;
+        }
+
+        private int GetPreviousFrameScore()
+        {
+            if (PreviousFrame == null)
+                return 0;
+            return PreviousFrame.CalculateScore();
         }
 
         #region static builder
@@ -43,7 +60,7 @@ namespace Bowling.Model
             ValidateFrame(firstLaunch, secondLaunch);
             if (firstLaunch == MaxDroppablePins)
                 return new StrikeFrame(firstLaunch, secondLaunch);
-            if(firstLaunch + secondLaunch == MaxDroppablePins)
+            if (firstLaunch + secondLaunch == MaxDroppablePins)
                 return new FrameSpare(firstLaunch, secondLaunch);
 
             return new Frame(firstLaunch, secondLaunch);

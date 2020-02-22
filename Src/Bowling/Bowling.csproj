@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Frame.cs" />
+    <Compile Include="Model\FrameSpare.cs" />
+    <Compile Include="Model\Game.cs" />
+    <Compile Include="Model\StrikeFrame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

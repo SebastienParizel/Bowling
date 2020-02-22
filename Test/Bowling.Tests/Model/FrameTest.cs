@@ -43,27 +43,41 @@ namespace Bowling.Tests.Model
         public void ValidateFrameScoreCalculation(int firstLaunch, int secondLaunch, int expectedScore)
         {
             var frame = Frame.CreateFrame(firstLaunch, secondLaunch);
-            Assert.Equal(expectedScore, frame.CalculateFrameScore());
+            Assert.Equal(expectedScore, frame.CalculateScore());
         }
 
         [Fact]
         public void ValidateFrameScoreCalculationWithSpare()
         {
-            var firstFrame = Frame.CreateFrame(1, 9);
-            var secondFrame = Frame.CreateFrame(5, 2);
+            var firstFrame = Frame.CreateFrame(1, 9);//10 + 5 -> 15
+            var secondFrame = Frame.CreateFrame(5, 2);//7 + 15 => 
             firstFrame.SetNextFrame(secondFrame);
-            Assert.Equal(7, secondFrame.CalculateFrameScore());
-            Assert.Equal(22, firstFrame.CalculateFrameScore());
+            Assert.Equal(15, firstFrame.CalculateScore());
+            Assert.Equal(22, secondFrame.CalculateScore());
+        }
+
+        [Fact]
+        public void ValidateFrameScoreCalculationWithSpareAsLastLaunch()
+        {
+            var firstFrame = Frame.CreateFrame(1, 9);
+            Assert.Equal(10, firstFrame.CalculateScore());
         }
 
         [Fact]
         public void ValidateFrameScoreCalculationWithStrike()
         {
-            var firstFrame = Frame.CreateFrame(10, 0);
-            var secondFrame = Frame.CreateFrame(5, 2);
+            var firstFrame = Frame.CreateFrame(10, 0);//10 + 5 + 2 -> 17
+            var secondFrame = Frame.CreateFrame(5, 2); // 7 + 17 -> 24
             firstFrame.SetNextFrame(secondFrame);
-            Assert.Equal(7, secondFrame.CalculateFrameScore());
-            Assert.Equal(24, firstFrame.CalculateFrameScore());
+            Assert.Equal(17, firstFrame.CalculateScore());
+            Assert.Equal(24, secondFrame.CalculateScore());
+        }
+
+        [Fact]
+        public void ValidateFrameScoreCalculationWithStrikeAsLastLaunch()
+        {
+            var firstFrame = Frame.CreateFrame(10, 0);
+            Assert.Equal(10, firstFrame.CalculateScore());
         }
     }
 }
