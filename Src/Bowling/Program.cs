@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 using Bowling.Builder;
 using Bowling.Model;
@@ -7,6 +8,8 @@ namespace Bowling
 {
     class Program
     {
+        private const int ApplicationEventId = 400;
+
         static void Main(string[] parameters)
         {
             try
@@ -19,9 +22,14 @@ namespace Bowling
                 {
                     DisplayFrameContent(frame);
                 }
-            }catch(BowlingException e)
+            }
+            catch (BowlingException e)
             {
                 DisplayException(e);
+            }
+            catch (Exception e)
+            {
+                LogToEvenViewer(e);
             }
         }
 
@@ -57,6 +65,22 @@ namespace Bowling
             Console.WriteLine(e.GetType().Name);
             Console.WriteLine(e.Message);
             Console.ResetColor();
+        }
+
+        private static void LogToEvenViewer(Exception e)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("An error occured");
+            Console.ResetColor();
+            using (EventLog eventLog = new EventLog("Application"))
+            {
+                eventLog.Source = "Bowling";
+                var message = new StringBuilder($"An exception occured of type { e.GetType().Name}");
+                message.Append(e.Message);
+                message.Append(e.StackTrace);
+
+                eventLog.WriteEntry(message.ToString(), EventLogEntryType.Error, ApplicationEventId);
+            }
         }
     }
 }
