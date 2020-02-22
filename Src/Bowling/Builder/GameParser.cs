@@ -17,12 +17,14 @@ namespace Bowling.Builder
 
         private void InitializeLaunches(string[] parameters)
         {
+            if (parameters.Length % 2 != 0)
+                throw new ArgumentException();
             foreach (var param in parameters)
             {
                 int launch;
                 if (!Int32.TryParse(param, out launch))
                 {
-                    //TODO
+                    throw new ArgumentException();
                 }
                 _launches.Enqueue(launch);
             }
