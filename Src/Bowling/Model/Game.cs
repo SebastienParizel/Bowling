@@ -24,6 +24,8 @@ namespace Bowling.Model
             }
             else
             {
+                if (!CanAddFrame())
+                    throw new NotSupportedException();
                 LastFrame.SetNextFrame(frame);
                 LastFrame = frame;
                 Count++;
@@ -33,6 +35,11 @@ namespace Bowling.Model
         private bool HasNoFrame()
         {
             return Count == 0;
+        }
+
+        private bool CanAddFrame()
+        {
+            return Count < 10;
         }
     }
 }

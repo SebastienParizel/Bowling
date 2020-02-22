@@ -62,5 +62,17 @@ namespace Bowling.Tests.Model
             Assert.Equal(firstFrame, game.FirstFrame);
             Assert.Equal(thirdFrame, game.LastFrame);
         }
+
+        [Fact]
+        public void ValidateCannotPlayMoreThanTenFrame()
+        {
+            var game = new Game();
+            for(int i=0; i<10; i++)
+            {
+                var frame = Frame.CreateFrame(1, 1);
+                game.AddFrame(frame);
+            }
+            Assert.Throws<NotSupportedException>(() => game.AddFrame(Frame.CreateFrame(1, 1)));
+        }
     }
 }
