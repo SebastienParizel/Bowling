@@ -7,6 +7,44 @@ This allows for a potential of 12 strikes in a single game, and a maximum score 
 ## Installation
 todo
 ## Running application
+The application will provide the current score and, for each frame, the intermediate score, the specificity of the frame
 ```
-Bowling.exe 1 2 5 3
+Bowling.exe 1 2 3 4 5 5 1 0 10 0 3 3
+```
+The following command will get the following result:
+```
+Final score: 44
+-----------------------
+* Frame n°1
+        intermediate score: 3
+        Is strike: False
+        Is spare:False
+* Frame n°2
+        intermediate score: 10
+        Is strike: False
+        Is spare:False
+* Frame n°3
+        intermediate score: 21
+        Is strike: False
+        Is spare:True
+* Frame n°4
+        intermediate score: 22
+        Is strike: False
+        Is spare:False
+* Frame n°5
+        intermediate score: 38
+        Is strike: True
+        Is spare:False
+* Frame n°6
+        intermediate score: 44
+        Is strike: False
+        Is spare:False
+```
+It is also possible to use specific character for special case:
+- No pin dropper : -
+- Strike : X
+- Spare : /
+In the previous example, you can get this
+```
+Bowling.exe 1 2 3 4 5 / 1 - X - 3 3
 ```
