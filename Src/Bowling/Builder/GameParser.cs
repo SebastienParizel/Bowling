@@ -7,41 +7,71 @@ namespace Bowling.Builder
 {
     public class GameParser
     {
-        private readonly Queue<int> _launches;
+        private readonly IFrameBuilder _builder;
 
-        public GameParser(string[] parameters)
+        public GameParser(IFrameBuilder builder)
         {
-            _launches = new Queue<int>();
-            InitializeLaunches(parameters);
+            _builder = builder ?? throw new ArgumentNullException(nameof(builder));
         }
 
-        private void InitializeLaunches(string[] parameters)
+
+        public Game BuildGame(string[] parameters)
         {
-            if (parameters.Length % 2 != 0)
+            if (!IsEvenNumberOfParameter(parameters))
                 throw new ArgumentException();
-            foreach (var param in parameters)
-            {
-                int launch;
-                if (!Int32.TryParse(param, out launch))
-                {
-                    throw new ArgumentException();
-                }
-                _launches.Enqueue(launch);
-            }
-        }
-
-        public Game BuildGame()
-        {
             var game = new Game();
-            while (_launches.Any())
+            for(int i=0; i<parameters.Length; i += 2)
             {
-                var first = _launches.Dequeue();
-                var second = _launches.Dequeue();
-                Frame frame = Frame.CreateFrame(first, second);
-                game.AddFrame(frame);            }
-
+                var frame = BuildFrame(parameters[i], parameters[i + 1]);
+                game.AddFrame(frame);
+            }
 
             return game;
+        }
+
+        private Frame BuildFrame(string first, string second)
+        {
+            if (IsStrikeValue(first))
+                return _builder.CreateStrike();
+            var firstLaunch = GetLaunchValue(first);
+            if (IsSpareValue(second))
+                return _builder.CreateSpare(firstLaunch);
+            var secondLaunch = GetLaunchValue(second);
+            return _builder.CreateFrame(firstLaunch, secondLaunch);
+        }
+
+        private bool IsEvenNumberOfParameter(string [] paramaters)
+        {
+            return paramaters.Length % 2 == 0;
+        }
+
+        private int GetLaunchValue(string param)
+        {
+            int launchValue;
+            if (IsStrikeValue(param))
+                return 10;
+            if (IsZeroValue(param))
+                return 0;
+            if (IsSpareValue(param))
+                return 0;
+            if (!Int32.TryParse(param, out launchValue))
+                throw new ArgumentException();
+            return launchValue;
+        }
+
+        private bool IsStrikeValue(string param)
+        {
+            return param.Equals("x", StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private bool IsSpareValue(string param)
+        {
+            return param.Equals("/", StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private bool IsZeroValue(string param)
+        {
+            return param.Equals("-", StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Bowling.Builder;
 using Bowling.Model;
 using Xunit;
 
@@ -6,98 +7,99 @@ namespace Bowling.Tests.Model
 {
     public class GameTest
     {
+        private readonly Game _game;
+        
+        public GameTest()
+        {
+            _game = new Game();
+        }
+
         [Fact]
         public void ValidateGameCreation()
         {
-            var game = new Game();
-            Assert.Equal(0, game.Count);
-            Assert.Null(game.LastFrame);
+            Assert.Equal(0, _game.Count);
+            Assert.Null(_game.LastFrame);
         }
 
         [Fact]
         public void ValidateFirstFrameAddToGame()
         {
-            var game = new Game();
-            var frame = Frame.CreateFrame(1, 2);
-            game.AddFrame(frame);
-            Assert.Equal(1, game.Count);
-            Assert.Equal(frame, game.LastFrame);
+            var frame = new Frame(1, 2);
+            _game.AddFrame(frame);
+            Assert.Equal(1, _game.Count);
+            Assert.Equal(frame, _game.LastFrame);
         }
 
         [Fact]
         public void ValidateSecondFrameAddToGame()
         {
-            var game = new Game();
-            var firstFrame = Frame.CreateFrame(1, 2);
-            game.AddFrame(firstFrame);
+            var firstFrame = new Frame(1, 2);
+            _game.AddFrame(firstFrame);
 
-            var secondFrame = Frame.CreateFrame(3, 4);
-            game.AddFrame(secondFrame);
+            var secondFrame = new Frame(3, 4);
+            _game.AddFrame(secondFrame);
 
-            Assert.Equal(2, game.Count);
-            Assert.Equal(secondFrame, game.LastFrame);
+            Assert.Equal(2, _game.Count);
+            Assert.Equal(secondFrame, _game.LastFrame);
         }
 
         [Fact]
         public void ValidateThirdFrameAddToGame()
         {
-            var game = new Game();
-            var firstFrame = Frame.CreateFrame(1, 2);
-            game.AddFrame(firstFrame);
+            var firstFrame = new Frame(1, 2);
+            _game.AddFrame(firstFrame);
 
-            var secondFrame = Frame.CreateFrame(3, 4);
-            game.AddFrame(secondFrame);
+            var secondFrame = new Frame(3, 4);
+            _game.AddFrame(secondFrame);
 
-            var thirdFrame = Frame.CreateFrame(5, 4);
-            game.AddFrame(thirdFrame);
+            var thirdFrame = new Frame(5, 4);
+            _game.AddFrame(thirdFrame);
 
-            Assert.Equal(3, game.Count);
-            Assert.Equal(thirdFrame, game.LastFrame);
+            Assert.Equal(3, _game.Count);
+            Assert.Equal(thirdFrame, _game.LastFrame);
         }
 
         [Fact]
         public void ValidateCannotPlayMoreThanTenFrame()
         {
-            var game = new Game();
             for(int i=0; i<10; i++)
             {
-                var frame = Frame.CreateFrame(1, 1);
-                game.AddFrame(frame);
+                var frame = new Frame(1, 1);
+                _game.AddFrame(frame);
             }
-            Assert.Throws<NotSupportedException>(() => game.AddFrame(Frame.CreateFrame(1, 1)));
+            Assert.Throws<NotSupportedException>(() => _game.AddFrame(new Frame(1, 1)));
         }
 
         [Fact]
         public void GivenNineFramePlayedWhenThenthFrameIsStrikeThenCanPlayAnExtraLaunch()
         {
-            var game = new Game();
             Frame frame;
+            var framebuilder = new FrameBuilder();
             for (int i = 0; i < 9; i++)
             {
-                frame = Frame.CreateFrame(1, 1);
-                game.AddFrame(frame);
+                frame = framebuilder.CreateFrame(1, 1);
+                _game.AddFrame(frame);
             }
-            frame = Frame.CreateFrame(10, 0);
-            game.AddFrame(frame);
+            frame = framebuilder.CreateFrame(10, 0);
+            _game.AddFrame(frame);
 
-            frame = Frame.CreateFrame(9, 0);
-            game.AddFrame(frame);
-            Assert.Equal(11, game.Count);
+            frame = framebuilder.CreateFrame(9, 0);
+            _game.AddFrame(frame);
+            Assert.Equal(11, _game.Count);
         }
 
         [Fact]
         public void ValidateGetFrame()
         {
-            var game = new Game();
             Frame[] frames = new Frame[3];
             for (int i = 0; i < 3; i++)
             {
-                frames[i] = Frame.CreateFrame(i, i + 1);
-                game.AddFrame(frames[i]);
+                frames[i] = new Frame(i, i + 1);
+                _game.AddFrame(frames[i]);
             }
 
             int index = 0;
-            foreach (var frame in game.GetFrames())
+            foreach (var frame in _game.GetFrames())
             {
                 Assert.Equal(frames[index], frame);
                 index++;

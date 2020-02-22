@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\FrameBuilder.cs" />
     <Compile Include="Builder\GameParser.cs" />
+    <Compile Include="Builder\IFrameBuilder.cs" />
     <Compile Include="Model\Frame.cs" />
     <Compile Include="Model\FrameSpare.cs" />
     <Compile Include="Model\Game.cs" />
