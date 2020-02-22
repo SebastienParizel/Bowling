@@ -88,5 +88,25 @@ namespace Bowling.Tests.Model
             game.AddFrame(frame);
             Assert.Equal(11, game.Count);
         }
+
+        [Fact]
+        public void ValidateGetFrame()
+        {
+            var game = new Game();
+            Frame[] frames = new Frame[3];
+            for (int i = 0; i < 3; i++)
+            {
+                frames[i] = Frame.CreateFrame(i, i + 1);
+                game.AddFrame(frames[i]);
+            }
+
+            int index = 0;
+            foreach (var frame in game.GetFrames())
+            {
+                Assert.Equal(frames[index], frame);
+                index++;
+            }
+            Assert.Equal(3, index);
+        }
     }
 }

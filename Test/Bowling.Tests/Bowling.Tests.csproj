@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\GameParserTest.cs" />
     <Compile Include="Model\FrameTest.cs" />
     <Compile Include="Model\GameTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

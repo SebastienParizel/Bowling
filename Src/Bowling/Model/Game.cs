@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Bowling.Model
 {
@@ -10,6 +11,8 @@ namespace Bowling.Model
 
         public Frame LastFrame { get; private set; } = null;
 
+        private List<Frame> _frames = new List<Frame>();
+
         public int Count { get; private set; } = 0;
 
         public void AddFrame(Frame frame)
@@ -18,6 +21,7 @@ namespace Bowling.Model
             {
                 FirstFrame = frame;
                 LastFrame = frame;
+                _frames.Add(frame);
                 Count = 1;
             }
             else
@@ -26,6 +30,7 @@ namespace Bowling.Model
                     throw new NotSupportedException();
                 LastFrame.SetNextFrame(frame);
                 LastFrame = frame;
+                _frames.Add(frame);
                 Count++;
             }
         }
@@ -41,6 +46,11 @@ namespace Bowling.Model
                 return true;
 
             return LastFrame.IsStrike && frame.SecondLaunch == 0;
+        }
+
+        public IEnumerable<Frame> GetFrames()
+        {
+            return _frames;
         }
     }
 }
