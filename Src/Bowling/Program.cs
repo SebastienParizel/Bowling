@@ -9,13 +9,19 @@ namespace Bowling
     {
         static void Main(string[] parameters)
         {
-            IGameParser parser = GetGameParser();
-            Game game = parser.BuildGame(parameters);
-
-            DisplayFinalScore(game.GetScore());
-            foreach (var frame in game.GetFrames())
+            try
             {
-                DisplayFrameContent(frame);
+                IGameParser parser = GetGameParser();
+                Game game = parser.BuildGame(parameters);
+
+                DisplayFinalScore(game.GetScore());
+                foreach (var frame in game.GetFrames())
+                {
+                    DisplayFrameContent(frame);
+                }
+            }catch(BowlingException e)
+            {
+                DisplayException(e);
             }
         }
 
@@ -43,6 +49,14 @@ namespace Bowling
             message.Append(intermediateNewLine);
             message.Append($"Is spare:{frame.IsSpare}");
             Console.WriteLine(message.ToString());
+        }
+
+        private static void DisplayException(BowlingException e)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(e.GetType().Name);
+            Console.WriteLine(e.Message);
+            Console.ResetColor();
         }
     }
 }

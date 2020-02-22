@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BowlingException.cs" />
     <Compile Include="Builder\FrameBuilder.cs" />
     <Compile Include="Builder\GameParser.cs" />
     <Compile Include="Builder\IFrameBuilder.cs" />

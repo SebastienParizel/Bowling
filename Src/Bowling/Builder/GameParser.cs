@@ -18,7 +18,7 @@ namespace Bowling.Builder
         public Game BuildGame(string[] parameters)
         {
             if (!IsEvenNumberOfParameter(parameters))
-                throw new ArgumentException();
+                throw new BowlingException("Parameters must be even");
             var game = new Game();
             for(int i=0; i<parameters.Length; i += 2)
             {
@@ -55,7 +55,7 @@ namespace Bowling.Builder
             if (IsSpareValue(param))
                 return 0;
             if (!Int32.TryParse(param, out launchValue))
-                throw new ArgumentException();
+                throw new BowlingException($"Not supported value [{param}]. Please use one of the following value: [0,1,2,3,4,5,6,7,8,9,10,-,/,X]");
             return launchValue;
         }
 

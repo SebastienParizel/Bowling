@@ -22,7 +22,7 @@ namespace Bowling.Model
             else
             {
                 if (!CanAddFrame(frame))
-                    throw new NotSupportedException();
+                    throw new BowlingException("To much frame in this party");
 
                 LastFrame.SetNextFrame(frame);
                 AddLinkedFrame(frame);
