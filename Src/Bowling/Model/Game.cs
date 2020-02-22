@@ -6,9 +6,6 @@ namespace Bowling.Model
     public class Game
     {
         private const int MaxFrameAllowed = 10;
-
-        public Frame FirstFrame { get; private set; } = null;
-
         public Frame LastFrame { get; private set; } = null;
 
         private List<Frame> _frames = new List<Frame>();
@@ -19,7 +16,6 @@ namespace Bowling.Model
         {
             if (HasNoFrame())
             {
-                FirstFrame = frame;
                 LastFrame = frame;
                 _frames.Add(frame);
                 Count = 1;

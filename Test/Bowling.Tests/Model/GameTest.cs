@@ -11,7 +11,6 @@ namespace Bowling.Tests.Model
         {
             var game = new Game();
             Assert.Equal(0, game.Count);
-            Assert.Null(game.FirstFrame);
             Assert.Null(game.LastFrame);
         }
 
@@ -22,7 +21,6 @@ namespace Bowling.Tests.Model
             var frame = Frame.CreateFrame(1, 2);
             game.AddFrame(frame);
             Assert.Equal(1, game.Count);
-            Assert.Equal(frame, game.FirstFrame);
             Assert.Equal(frame, game.LastFrame);
         }
 
@@ -37,7 +35,6 @@ namespace Bowling.Tests.Model
             game.AddFrame(secondFrame);
 
             Assert.Equal(2, game.Count);
-            Assert.Equal(firstFrame, game.FirstFrame);
             Assert.Equal(secondFrame, game.LastFrame);
         }
 
@@ -55,7 +52,6 @@ namespace Bowling.Tests.Model
             game.AddFrame(thirdFrame);
 
             Assert.Equal(3, game.Count);
-            Assert.Equal(firstFrame, game.FirstFrame);
             Assert.Equal(thirdFrame, game.LastFrame);
         }
 
