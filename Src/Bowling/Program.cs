@@ -51,18 +51,21 @@ namespace Bowling
             var message = new StringBuilder();
             message.Append($"* Frame n°{frame.FrameNumber}");
             message.Append(intermediateNewLine);
-            message.Append($"intermediate score: { frame.CalculateScore()}");
+            message.Append($"Intermediate score:\t{ frame.CalculateScore()}");
             message.Append(intermediateNewLine);
-            message.Append($"Is strike: { frame.IsStrike}");
+            message.Append($"Is strike:\t{ frame.IsStrike}");
             message.Append(intermediateNewLine);
-            message.Append($"Is spare:{frame.IsSpare}");
+            message.Append($"Is spare:\t{frame.IsSpare}");
+            message.Append(intermediateNewLine);
+            message.Append($"First launch:\t{frame.FirstLaunch}");
+            message.Append(intermediateNewLine);
+            message.Append($"Second launch:\t{frame.SecondLaunch}");
             Console.WriteLine(message.ToString());
         }
 
         private static void DisplayException(BowlingException e)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(e.GetType().Name);
             Console.WriteLine(e.Message);
             Console.ResetColor();
         }
