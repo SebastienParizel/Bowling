@@ -8,6 +8,8 @@ namespace Bowling.Model
 {
     public class Game
     {
+        private const int MaxFrameAllowed = 10;
+
         public Frame FirstFrame { get; private set; } = null;
 
         public Frame LastFrame { get; private set; } = null;
@@ -24,7 +26,7 @@ namespace Bowling.Model
             }
             else
             {
-                if (!CanAddFrame())
+                if (!CanAddFrame(frame))
                     throw new NotSupportedException();
                 LastFrame.SetNextFrame(frame);
                 LastFrame = frame;
@@ -37,9 +39,12 @@ namespace Bowling.Model
             return Count == 0;
         }
 
-        private bool CanAddFrame()
+        private bool CanAddFrame(Frame frame)
         {
-            return Count < 10;
+            if (Count < MaxFrameAllowed)
+                return true;
+
+            return LastFrame.IsStrike && frame.SecondLaunch == 0;
         }
     }
 }

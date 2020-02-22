@@ -74,5 +74,23 @@ namespace Bowling.Tests.Model
             }
             Assert.Throws<NotSupportedException>(() => game.AddFrame(Frame.CreateFrame(1, 1)));
         }
+
+        [Fact]
+        public void GivenNineFramePlayedWhenThenthFrameIsStrikeThenCanPlayAnExtraLaunch()
+        {
+            var game = new Game();
+            Frame frame;
+            for (int i = 0; i < 9; i++)
+            {
+                frame = Frame.CreateFrame(1, 1);
+                game.AddFrame(frame);
+            }
+            frame = Frame.CreateFrame(10, 0);
+            game.AddFrame(frame);
+
+            frame = Frame.CreateFrame(9, 0);
+            game.AddFrame(frame);
+            Assert.Equal(11, game.Count);
+        }
     }
 }
