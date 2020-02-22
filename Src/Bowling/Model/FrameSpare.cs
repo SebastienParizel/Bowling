@@ -8,7 +8,7 @@ namespace Bowling.Model
             IsSpare = true;
         }
 
-        public override int CalculateFrameScore()
+        protected override int CalculateFrameScore()
         {
             int baseScore = base.CalculateFrameScore();
             if (!HasNextFrame())

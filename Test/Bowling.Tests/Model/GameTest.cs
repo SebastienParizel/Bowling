@@ -41,6 +41,8 @@ namespace Bowling.Tests.Model
 
             Assert.Equal(2, _game.Count);
             Assert.Equal(secondFrame, _game.LastFrame);
+            Assert.Equal(1, firstFrame.FrameNumber);
+            Assert.Equal(2, secondFrame.FrameNumber);
         }
 
         [Fact]
@@ -57,6 +59,9 @@ namespace Bowling.Tests.Model
 
             Assert.Equal(3, _game.Count);
             Assert.Equal(thirdFrame, _game.LastFrame);
+            Assert.Equal(1, firstFrame.FrameNumber);
+            Assert.Equal(2, secondFrame.FrameNumber);
+            Assert.Equal(3, thirdFrame.FrameNumber);
         }
 
         [Fact]
@@ -86,6 +91,7 @@ namespace Bowling.Tests.Model
             frame = framebuilder.CreateFrame(9, 0);
             _game.AddFrame(frame);
             Assert.Equal(11, _game.Count);
+            Assert.Equal(11, frame.FrameNumber);
         }
 
         [Fact]

@@ -4,6 +4,7 @@ namespace Bowling.Model
 {
     public class Frame
     {
+        public int FrameNumber { get; private set; } = 1;
         public int FirstLaunch { get; protected set; }
         public int SecondLaunch { get; protected set; }
         public bool IsStrike { get; protected set; } = false;
@@ -20,6 +21,7 @@ namespace Bowling.Model
 
         public void SetNextFrame(Frame frame)
         {
+            frame.FrameNumber = FrameNumber + 1;
             NextFrame = frame;
             frame.PreviousFrame = this;
         }
@@ -31,7 +33,7 @@ namespace Bowling.Model
             return previousFrameScore + frameScore;
         }
 
-        public virtual int CalculateFrameScore()
+        protected virtual int CalculateFrameScore()
         {
             return FirstLaunch + SecondLaunch;
         }
