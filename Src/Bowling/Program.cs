@@ -72,18 +72,26 @@ namespace Bowling
 
         private static void LogToEvenViewer(Exception e)
         {
+            StringBuilder message=null;
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("An error occured");
-            Console.ResetColor();
-            using (EventLog eventLog = new EventLog("Application"))
+            try
             {
-                eventLog.Source = "Bowling";
-                var message = new StringBuilder($"An exception occured of type { e.GetType().Name}");
-                message.Append(e.Message);
-                message.Append(e.StackTrace);
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Bowling";
+                    message = new StringBuilder($"An exception occured of type { e.GetType().Name}");
+                    message.Append(e.Message);
+                    message.Append(e.StackTrace);
 
-                eventLog.WriteEntry(message.ToString(), EventLogEntryType.Error, ApplicationEventId);
+                    eventLog.WriteEntry(message.ToString(), EventLogEntryType.Error, ApplicationEventId);
+                }
+                Console.WriteLine("An error occured");
             }
+            catch (Exception)
+            {
+                Console.WriteLine(message.ToString());
+            }
+            Console.ResetColor();
         }
     }
 }
