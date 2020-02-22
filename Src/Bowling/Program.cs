@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Bowling.Builder;
 using Bowling.Model;
 
@@ -12,16 +9,26 @@ namespace Bowling
     {
         static void Main(string[] parameters)
         {
-            IFrameBuilder buider = new FrameBuilder();
-            GameParser parser = new GameParser(buider);
+            IGameParser parser = GetGameParser();
             Game game = parser.BuildGame(parameters);
-            Console.WriteLine($"Final score: {game.GetScore()}");
-            Console.WriteLine("-----------------------");
+
+            DisplayFinalScore(game.GetScore());
             foreach (var frame in game.GetFrames())
             {
                 DisplayFrameContent(frame);
             }
-            Console.ReadKey();
+        }
+
+        private static IGameParser GetGameParser()
+        {
+            IFrameBuilder buider = new FrameBuilder();
+            return new GameParser(buider);
+        }
+
+        private static void DisplayFinalScore(int finalScore)
+        {
+            Console.WriteLine($"Final score: {finalScore}");
+            Console.WriteLine("-----------------------");
         }
 
         private static void DisplayFrameContent(Frame frame)

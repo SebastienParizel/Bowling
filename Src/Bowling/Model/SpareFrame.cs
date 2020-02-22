@@ -1,9 +1,9 @@
 ﻿
 namespace Bowling.Model
 {
-    internal class FrameSpare : Frame
+    internal class SpareFrame : Frame
     {
-        protected internal FrameSpare(int firstLaunch, int secondLaunch) : base(firstLaunch, secondLaunch)
+        public SpareFrame(int firstLaunch, int secondLaunch) : base(firstLaunch, secondLaunch)
         {
             IsSpare = true;
         }

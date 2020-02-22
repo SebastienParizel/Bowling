@@ -17,18 +17,23 @@ namespace Bowling.Model
             if (HasNoFrame())
             {
                 LastFrame = frame;
-                _frames.Add(frame);
-                Count = 1;
+                AddLinkedFrame(frame);
             }
             else
             {
                 if (!CanAddFrame(frame))
                     throw new NotSupportedException();
+
                 LastFrame.SetNextFrame(frame);
-                LastFrame = frame;
-                _frames.Add(frame);
-                Count++;
+                AddLinkedFrame(frame);
             }
+        }
+
+        private void AddLinkedFrame(Frame frame)
+        {
+            LastFrame = frame;
+            _frames.Add(frame);
+            Count++;
         }
 
         public int GetScore()

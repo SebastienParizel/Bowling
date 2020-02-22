@@ -46,8 +46,9 @@
     <Compile Include="Builder\FrameBuilder.cs" />
     <Compile Include="Builder\GameParser.cs" />
     <Compile Include="Builder\IFrameBuilder.cs" />
+    <Compile Include="Builder\IGameParser.cs" />
     <Compile Include="Model\Frame.cs" />
-    <Compile Include="Model\FrameSpare.cs" />
+    <Compile Include="Model\SpareFrame.cs" />
     <Compile Include="Model\Game.cs" />
     <Compile Include="Model\StrikeFrame.cs" />
     <Compile Include="Program.cs" />

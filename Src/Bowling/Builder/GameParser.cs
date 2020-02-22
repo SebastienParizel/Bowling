@@ -5,7 +5,7 @@ using Bowling.Model;
 
 namespace Bowling.Builder
 {
-    public class GameParser
+    public class GameParser : IGameParser
     {
         private readonly IFrameBuilder _builder;
 

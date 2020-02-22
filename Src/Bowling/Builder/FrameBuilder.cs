@@ -17,7 +17,7 @@ namespace Bowling.Builder
             if (firstLaunch == MaxDroppablePins)
                 return new StrikeFrame(firstLaunch, secondLaunch);
             if (firstLaunch + secondLaunch == MaxDroppablePins)
-                return new FrameSpare(firstLaunch, secondLaunch);
+                return new SpareFrame(firstLaunch, secondLaunch);
 
             return new Frame(firstLaunch, secondLaunch);
         }
@@ -26,7 +26,7 @@ namespace Bowling.Builder
         {
             ValidateLaunch(firstLaunch);
             var secondLaunch = GetSparedLaunch(firstLaunch);
-            return new FrameSpare(firstLaunch, secondLaunch);
+            return new SpareFrame(firstLaunch, secondLaunch);
 
         }
 

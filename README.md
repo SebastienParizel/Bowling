@@ -1,11 +1,10 @@
 # Bowling
 ## Bowling rules
+You can find the complete rules on the following link : [playerssports.net](https://www.playerssports.net/page/bowling-rules)
 A game of bowling consists of ten frames.
 In each frame, the bowler will have two chances to knock down as many pins as possible with their bowling ball. If a bowler is able to knock down all ten pins with their first ball, he is awarded a strike. If the bowler is able to knock down all 10 pins with the two balls of a frame, it is known as a spare. Bonus points are awarded for both of these, depending on what is scored in the next 2 balls (for a strike) or 1 ball (for a spare).
 If the bowler knocks down all 10 pins in the tenth frame, the bowler is allowed to throw 3 balls for that frame.
 This allows for a potential of 12 strikes in a single game, and a maximum score of 300 points, a perfect game.
-## Installation
-todo
 ## Running application
 The application will provide the current score and, for each frame, the intermediate score, the specificity of the frame
 ```
@@ -41,7 +40,7 @@ Final score: 44
         Is spare:False
 ```
 It is also possible to use specific character for special case:
-- No pin dropper : -
+- No pin dropped : -
 - Strike : X
 - Spare : /
 In the previous example, you can get this
