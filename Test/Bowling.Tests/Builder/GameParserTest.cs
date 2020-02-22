@@ -13,7 +13,7 @@ namespace Bowling.Tests.Builder
             var builder = new GameParser(parameters);
             Game game = builder.BuildGame();
             Assert.Equal(expectedFrameCount, game.Count);
-            //Assert.Equal(expectedFinalScore, game.GetScore());
+            Assert.Equal(expectedFinalScore, game.GetScore());
         }
     }
 }

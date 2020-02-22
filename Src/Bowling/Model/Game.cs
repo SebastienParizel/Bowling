@@ -35,6 +35,11 @@ namespace Bowling.Model
             }
         }
 
+        public int GetScore()
+        {
+            return LastFrame.CalculateScore();
+        }
+
         private bool HasNoFrame()
         {
             return Count == 0;
