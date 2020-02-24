@@ -14,27 +14,27 @@ The following command will get the following result:
 ```
 Final score: 44
 -----------------------
-* Frame n°1
+* Frame nÂ°1
         intermediate score: 3
         Is strike: False
         Is spare:False
-* Frame n°2
+* Frame nÂ°2
         intermediate score: 10
         Is strike: False
         Is spare:False
-* Frame n°3
+* Frame nÂ°3
         intermediate score: 21
         Is strike: False
         Is spare:True
-* Frame n°4
+* Frame nÂ°4
         intermediate score: 22
         Is strike: False
         Is spare:False
-* Frame n°5
+* Frame nÂ°5
         intermediate score: 38
         Is strike: True
         Is spare:False
-* Frame n°6
+* Frame nÂ°6
         intermediate score: 44
         Is strike: False
         Is spare:False
@@ -47,3 +47,7 @@ In the previous example, you can get this
 ```
 Bowling.exe 1 2 3 4 5 / 1 - X - 3 3
 ```
+## Limitation
+1. The current application does not support insert of partial frame. It assumes the frame must be played to be encoded. So, it is not possible to get the score after 5 launches
+2. All the details are always display. It could be interesting to make this detail display configurable
+3. No log system is added for the moment but could be added.
