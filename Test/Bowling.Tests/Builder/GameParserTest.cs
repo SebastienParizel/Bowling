@@ -19,10 +19,11 @@ namespace Bowling.Tests.Builder
         [Theory]
         [InlineData(2, 7, "1", "1", "3", "2")]
         [InlineData(3, 60, "X", "X", "X")]
+        [InlineData(4, 35, "5", "2", "10", "7", "0", "4")]
         [InlineData(10, 10, "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1")]
         [InlineData(10, 11, "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "1", "1")]
         [InlineData(10, 11, "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "00", "01", "1", "1")]
-        [InlineData(11, 25, "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "00", "01", "10", "0", "3", "0")]
+        [InlineData(11, 25, "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "00", "01", "10", "3", "0")]
         public void GivenAValideParameterSet_WhenIParseIt_ThenIGetAValideGame(int expectedFrameCount, int expectedFinalScore, params string[] parameters)
         {
             Game game = _parser.BuildGame(parameters);

@@ -20,7 +20,7 @@ namespace Bowling.Builder
         public Game BuildGame(string[] parameters)
         {
             var game = new Game();
-            while(_index < parameters.Length)
+            while (_index < parameters.Length)
             {
                 var firstLaunch = GetNextParameter(parameters);
                 if (IsStrikeValue(firstLaunch))
@@ -72,6 +72,7 @@ namespace Bowling.Builder
 
         private Frame BuildStrike()
         {
+
             return _builder.CreateStrike();
         }
 
@@ -91,7 +92,7 @@ namespace Bowling.Builder
 
         private bool IsStrikeValue(string param)
         {
-            return param.Equals("x", StringComparison.InvariantCultureIgnoreCase);
+            return param.Equals("x", StringComparison.InvariantCultureIgnoreCase) || param.Equals("10", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private bool IsSpareValue(string param)
