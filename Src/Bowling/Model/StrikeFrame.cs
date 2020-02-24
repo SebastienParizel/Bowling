@@ -13,7 +13,26 @@ namespace Bowling.Model
             int baseScore = base.CalculateFrameScore();
             if (!HasNextFrame())
                 return baseScore;
-            return baseScore + NextFrame.FirstLaunch + NextFrame.SecondLaunch;
+            return baseScore + GetFirstNextLaunch() + GetSecondNextLaunch();
+        }
+
+        private int GetFirstNextLaunch()
+        {
+            if (HasNextFrame())
+                return NextFrame.FirstLaunch;
+            return 0;
+        }
+
+        private int GetSecondNextLaunch()
+        {
+            if (HasNextFrame())
+            {
+                if (!NextFrame.IsStrike)
+                    return NextFrame.SecondLaunch;
+                if (NextFrame.NextFrame != null)
+                    return NextFrame.NextFrame.FirstLaunch;
+            }
+            return 0;
         }
     }
 }
