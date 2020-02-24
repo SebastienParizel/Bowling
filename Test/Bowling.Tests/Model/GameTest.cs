@@ -72,7 +72,7 @@ namespace Bowling.Tests.Model
                 var frame = new Frame(1, 1);
                 _game.AddFrame(frame);
             }
-            Assert.Throws<NotSupportedException>(() => _game.AddFrame(new Frame(1, 1)));
+            Assert.Throws<BowlingException>(() => _game.AddFrame(new Frame(1, 1)));
         }
 
         [Fact]

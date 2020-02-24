@@ -38,12 +38,13 @@ namespace Bowling.Tests.Builder
         [InlineData("", "1", "3", "2")]
         public void GivenAnInvalidParameterSet_WhenIParseIt_ThenIGetAnException(params string[] parameters)
         {
-            Assert.Throws<ArgumentException>(() => _parser.BuildGame(parameters));
+            Assert.Throws<BowlingException>(() => _parser.BuildGame(parameters));
         }
 
         [Theory]
         [InlineData(1, 9, "1", "/", "5", "3")]
         [InlineData(10, 0, "X", "-", "5", "3")]
+        [InlineData(10, 0, "X", "5", "3")]
         [InlineData(5, 0, "5", "-", "5", "3")]
         public void GivenSpecialCharacterInParameterSet_WhenIParseIt_ThenIGetAValidGame(int expectedFirstLaunch, int expectedSecondLaunch, params string[] parameters)
         {
