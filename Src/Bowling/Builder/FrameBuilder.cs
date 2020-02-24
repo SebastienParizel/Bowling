@@ -51,14 +51,14 @@ namespace Bowling.Builder
         private void ValidateLaunch(int launch)
         {
             if (launch < 0 || launch > MaxDroppablePins)
-                throw new ArgumentException($"A launch should be between 0 and {MaxDroppablePins} but is [{launch}]");
+                throw new BowlingException($"A launch should be between 0 and {MaxDroppablePins} but is [{launch}]");
         }
 
         private void ValidatePinNotExceeed(int firstLaunch, int secondLaunch)
         {
             int totalPinDropped = firstLaunch + secondLaunch;
             if (totalPinDropped > MaxDroppablePins)
-                throw new ArgumentException($"Maximum ({MaxDroppablePins} pin dropped exceed: {totalPinDropped}");
+                throw new BowlingException($"Maximum ({MaxDroppablePins} pin dropped exceed: {totalPinDropped}");
         }
     }
 }

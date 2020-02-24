@@ -36,7 +36,7 @@ namespace Bowling.Tests.Model
         [InlineData(0, -1)]
         public void ValidateFrameCreationWithInvalidParameters(int firstLaunch, int secondLaunch)
         {
-            var exception = Assert.Throws<ArgumentException>(() => _frameBuilder.CreateFrame(firstLaunch, secondLaunch));
+            var exception = Assert.Throws<BowlingException>(() => _frameBuilder.CreateFrame(firstLaunch, secondLaunch));
             Assert.NotEmpty(exception.Message);
         }
 
