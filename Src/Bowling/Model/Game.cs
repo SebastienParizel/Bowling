@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bowling.Model
 {
@@ -10,7 +11,7 @@ namespace Bowling.Model
 
         private List<Frame> _frames = new List<Frame>();
 
-        public int Count { get; private set; } = 0;
+        public int Count => _frames.Count();
 
         public void AddFrame(Frame frame)
         {
@@ -33,7 +34,6 @@ namespace Bowling.Model
         {
             LastFrame = frame;
             _frames.Add(frame);
-            Count++;
         }
 
         public int GetScore()
@@ -50,6 +50,9 @@ namespace Bowling.Model
         {
             if (Count < MaxFrameAllowed)
                 return true;
+
+            if (Count >= MaxFrameAllowed + 1)
+                return false;
 
             return LastFrame.IsStrike && frame.SecondLaunch == 0;
         }

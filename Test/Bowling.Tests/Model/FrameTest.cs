@@ -78,6 +78,19 @@ namespace Bowling.Tests.Model
         }
 
         [Fact]
+        public void ValidateDoubleStrike()
+        {
+            var firstStrike = _frameBuilder.CreateStrike();
+            var secondStrike = _frameBuilder.CreateStrike();
+            var thirdFrame = _frameBuilder.CreateFrame(5, 2);
+            var fourthFrame = _frameBuilder.CreateFrame(2, 1);
+            firstStrike.SetNextFrame(secondStrike);
+            secondStrike.SetNextFrame(thirdFrame);
+            thirdFrame.SetNextFrame(fourthFrame);
+            Assert.Equal(52, fourthFrame.CalculateScore());
+        }
+
+        [Fact]
         public void ValidateFrameScoreCalculationWithStrikeAsLastLaunch()
         {
             var firstFrame = _frameBuilder.CreateFrame(10, 0);
