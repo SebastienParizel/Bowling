@@ -32,7 +32,6 @@ namespace Bowling.Tests.Builder
         [Theory]
         [InlineData("?", "1", "3", "2")]
         [InlineData("0", "1", "3", "a")]
-        [InlineData("0", "1", "3")]
         [InlineData("\t", "1", "3", "2")]
         [InlineData("\0", "1", "3", "2")]
         [InlineData("", "1", "3", "2")]

@@ -8,41 +8,71 @@ namespace Bowling.Builder
     public class GameParser : IGameParser
     {
         private readonly IFrameBuilder _builder;
+        private int _index;
 
         public GameParser(IFrameBuilder builder)
         {
             _builder = builder ?? throw new ArgumentNullException(nameof(builder));
+            _index = 0;
         }
 
 
         public Game BuildGame(string[] parameters)
         {
-            if (!IsEvenNumberOfParameter(parameters))
-                throw new BowlingException("Parameters must be even");
             var game = new Game();
-            for(int i=0; i<parameters.Length; i += 2)
+            while(_index < parameters.Length)
             {
-                var frame = BuildFrame(parameters[i], parameters[i + 1]);
-                game.AddFrame(frame);
+                var firstLaunch = GetNextParameter(parameters);
+                if (IsStrikeValue(firstLaunch))
+                {
+                    var strike = BuildStrike();
+                    game.AddFrame(strike);
+                }
+                else
+                {
+                    string secondLaunch = GetNextParameter(parameters);
+                    if (IsSpareValue(secondLaunch))
+                    {
+                        var spare = BuildSpare(firstLaunch);
+                        game.AddFrame(spare);
+                    }
+                    else
+                    {
+                        var frame = BuildFrame(firstLaunch, secondLaunch);
+                        game.AddFrame(frame);
+                    }
+                }
             }
-
             return game;
         }
 
-        private Frame BuildFrame(string first, string second)
+        private string GetNextParameter(string[] parameters)
         {
-            if (IsStrikeValue(first))
-                return _builder.CreateStrike();
-            var firstLaunch = GetLaunchValue(first);
-            if (IsSpareValue(second))
-                return _builder.CreateSpare(firstLaunch);
-            var secondLaunch = GetLaunchValue(second);
-            return _builder.CreateFrame(firstLaunch, secondLaunch);
+            if (_index < parameters.Length)
+            {
+                string param = parameters[_index];
+                _index++;
+                return param;
+            }
+            return "0";
         }
 
-        private bool IsEvenNumberOfParameter(string [] paramaters)
+        private Frame BuildFrame(string firstLaunch, string secondLaunch)
         {
-            return paramaters.Length % 2 == 0;
+            var first = GetLaunchValue(firstLaunch);
+            var second = GetLaunchValue(secondLaunch);
+            return _builder.CreateFrame(first, second);
+        }
+
+        private Frame BuildSpare(string firstLaunch)
+        {
+            int launch = GetLaunchValue(firstLaunch);
+            return _builder.CreateSpare(launch);
+        }
+
+        private Frame BuildStrike()
+        {
+            return _builder.CreateStrike();
         }
 
         private int GetLaunchValue(string param)
