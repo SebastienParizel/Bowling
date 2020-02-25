@@ -48,6 +48,5 @@ In the previous example, you can get this
 Bowling.exe 1 2 3 4 5 / 1 - X - 3 3
 ```
 ## Limitation
-1. The current application does not support insert of partial frame. It assumes the frame must be played to be encoded. So, it is not possible to get the score after 5 launches
-2. All the details are always display. It could be interesting to make this detail display configurable
-3. No log system is added for the moment but could be added.
+1. All the details are always display. It could be interesting to make this detail display configurable
+2. No log system is added for the moment but could be added.
