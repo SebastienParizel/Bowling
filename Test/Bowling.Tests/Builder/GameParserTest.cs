@@ -18,6 +18,7 @@ namespace Bowling.Tests.Builder
 
         [Theory]
         [InlineData(2, 7, "1", "1", "3", "2")]
+        [InlineData(3, 36, "X", "5", "3", "1", "/")]
         [InlineData(3, 60, "X", "X", "X")]
         [InlineData(4, 35, "5", "2", "10", "7", "0", "4")]
         [InlineData(10, 10, "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", "0", "1")]
@@ -37,6 +38,7 @@ namespace Bowling.Tests.Builder
         [InlineData("\t", "1", "3", "2")]
         [InlineData("\0", "1", "3", "2")]
         [InlineData("", "1", "3", "2")]
+        [InlineData("X", "5", "3", "/", "1")]
         public void GivenAnInvalidParameterSet_WhenIParseIt_ThenIGetAnException(params string[] parameters)
         {
             Assert.Throws<BowlingException>(() => _parser.BuildGame(parameters));

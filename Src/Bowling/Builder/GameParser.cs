@@ -72,7 +72,6 @@ namespace Bowling.Builder
 
         private Frame BuildStrike()
         {
-
             return _builder.CreateStrike();
         }
 
@@ -84,7 +83,7 @@ namespace Bowling.Builder
             if (IsZeroValue(param))
                 return 0;
             if (IsSpareValue(param))
-                return 0;
+                throw new BowlingException("A spare can only be done on the second launch of the frame");
             if (!Int32.TryParse(param, out launchValue))
                 throw new BowlingException($"Not supported value [{param}]. Please use one of the following value: [0,1,2,3,4,5,6,7,8,9,10,-,/,X]");
             return launchValue;
